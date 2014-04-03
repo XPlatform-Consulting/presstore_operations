@@ -1,0 +1,28 @@
+<% form_for(:presstore_operation, @presstore_operation, :url=> {:controller=>'actions', :action=>'update'},  :html => {:id => 'edit_action' }) do |f| %>
+  <%= f.error_messages %>
+
+  <li>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </li>
+  <li>
+    <%= f.label :comments %>
+    <%= f.text_area :comments, :rows => 3 %>
+  </li>
+  <li>
+    <%= f.label 'Operation'%>
+    <%= select_tag('presstore_operation[operation]', options_for_select(PresstoreOperation::OPERATION_LIST, @presstore_operation.operation)) %>
+  </li>
+  <li>
+    <%= f.label 'Execution Node' %>
+    <%= node_selector_by_name('presstore_operation', 'execution_node', @presstore_operation.execution_node) %>
+  </li>
+  <%= begin_advanced_section('advanced_login', 'Execution account (optional)')%>
+  <li>
+    <%= f.label :execution_login %>
+    <%= f.text_field :execution_login, :value => @presstore_operation.execution_login, :placeholder => "- optional: node's login used by default -" %>
+  </li>
+  <%= double_password('execution_password', 'Execution Password', @presstore_operation) %>
+  <%= end_advanced_section('advanced_login')%>
+
+<% end %>

@@ -1,0 +1,74 @@
+<%= begin_parameters_list %>
+<%= add_name("Elemental Transcoding") %>
+<%= add_parameter_help("Comments", "The comments of the Elemental Transcoding template") %>
+<%= add_parameter_help("Elemental Server Node", "The remote node name of the server which hosts the Elemental Transcoding server") %>
+<%= add_parameter_help("Elemental Server IP address (or hostname)", "The remote host name or remote IP of the server which hosts the Elemental Transcoding server") %>
+<%= add_parameter_help("Elemental API port (optional)", "The port number of remote server which hosts the Elemental Transcoding server") %>
+<%= add_parameter_help("Enable Authentication", "If the Elemental server requires authentication, check this box") %>
+<%= add_parameter_help("User name", "The user name to be used to login/authenticate with the Elemental server") %>
+<%= add_parameter_help("API Key", "API Key of the user used to authenticate with the Elemental server (found under Elemental User profile)") %>
+<%= add_parameter_help("Source", "The absolute path to the file on the server's file system") %>
+<%= add_parameter_help("Target", "The absolute path to the directory on the server's file system. This field is overwritten with the target specified under the profile selected") %>
+<%= add_parameter_help("Elemental Profiles", "A dropdown of Elemental profiles available on Elemental server to transcode files") %>
+<%= add_parameter_help("Profile Id", "Id of the Elemental profile selected") %>
+<%= add_parameter_help("Status Polling frequency", "How often progress will be reported. Default is 5 seconds") %>
+<%= end_parameters_list %>
+
+<%= begin_inputs_description %>
+<%= add_generic_input_help("ElementalTranscoding") %>
+
+<%= begin_list %>
+All parameters are available as inputs at runtime if not specified by the template.<br/>
+This plug-in does not support value overwrites: if a value is specified in the template it will not
+be available as input of the step at runtime.<br/>
+<%= end_list %>
+
+<br/><b>These inputs are mandatory:</b><br/>
+<%= begin_list %>
+<%=add_input_help("Elemental Server Node or Elemental IP Address","Either a remote node must be selected or a remote IP address must be provided.")%>
+<%=add_input_help("Profile Id","A profile ID is mandatory while submitting a job, hence a profile must be selected from dropdown.")%>
+<%=add_input_help("Source", "Absolute path to the source file on remote server must be provided")%>
+<br/><b>Mandatory Fields if authentication is needed</b>
+<%= add_input_help("User name", "A preset payload must be provided") %>
+<%= add_input_help("API Key", "Absolute path to the source file on remote server must be provided") %>
+<%= end_list %>
+<br/>
+<b>These inputs are optional:</b><br/>
+<%= begin_list %>
+<%=add_input_help("Name", "It is advisable that a name is entered to identify the template.")%>
+<%=add_input_help("Comments", "Information about the template which will help identify the template.")%>
+<%=add_input_help("Elemental API Port", "The port is optional as a default value is used if not specified.")%>
+<%=add_input_help("Enable Authentication", "If the check box is not checked, the requests to the server do not include authentication parameters")%>
+<%=add_input_help("Target", "Target is optional as it is overwritten with the target specified under the profile selected")%>
+<%=add_input_help("Status Polling frequency","Specify if progress needs to be reported within a time other than default.")%>
+<%= end_list %>
+
+<%= end_inputs_description %>
+
+<%= begin_outputs_description %>
+<%= begin_list %>
+<%= #add_output_help(ElementalTranscoding::OUT_INPUT_FILE, "The input file path involved in the transcode operation") %>
+<%= #add_output_help(ElementalTranscoding::OUT_OUTPUT_FILE, "The output file(s) obtained as a result of the transcode operation") %>
+<%= #add_output_help(ElementalTranscoding::OUT_JOBID, "The ID of the job triggered by the transcode operation") %>
+<%= #add_output_help(ElementalTranscoding::OUT_ERRORS, "Errors reported by transcode server during transcode operation") %>
+<%= end_list %>
+<%= end_outputs_description %>
+
+<%= operating_instructions_start %>
+This plug-in allows users to provide necessary inputs required for a Elemental server to do a transcode job.<br/><br/>
+
+The mandatory inputs are listed above.<br/><br/>
+
+The plug-in supports authentication as requested by Elemental Server in the latest API release. An example of a transcode job is given below.
+Currently only a single source file can be specified. Target if specified is overwritten by the profile setup on the Elemental server<br/><br/>
+
+<h3>An example of a transcode</h3><br/>
+a) Provide remote node or remote server IP and port (example: 10.0.103.85 or transcode.lala.com)<br/>
+b) Decide if authentication should be enabled. If yes, check the box else leave it un-checked<br/>
+c) Click the button Get Elemental Profiles. This provides a dropdown with profiles from the provided Elemental server<br/>
+d) Select a profile from the dropdown<br/>
+e) The profile ID is submitted along with source file path to Elemental server<br/>
+f) Provide source file name (Ex: "/data/input/expendables.avi")<br/>
+g) Elemental server takes these inputs and assigns a priority (default is 50) to the job and performs the transcode<br/>
+<br/>
+<%= operating_instructions_end %>
